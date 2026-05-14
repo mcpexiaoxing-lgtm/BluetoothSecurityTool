@@ -1,18 +1,11 @@
 # IoT蓝牙安全测试工具 - Python依赖
 # Windows版本
 
-# 核心依赖
-pybluez>=0.23           # 经典蓝牙支持
-bleak>=0.14.0           # BLE蓝牙支持
-pywin32>=305             # Windows API
+# 使用纯Python蓝牙库（避免编译问题）
+bleak>=0.20.0
 
-# GUI (Python内置tkinter，通常不需要安装)
+# GUI（Python内置）
+# tkinter - 内置
 
-# 数据处理
-pyserial>=3.5            # 串口通信
-
-# 其他
-argparse
-json
-datetime
-threading
+# 其他内置库
+# argparse, json, datetime, threading, os, sys, pathlib

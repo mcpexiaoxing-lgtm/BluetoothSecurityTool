@@ -16,16 +16,13 @@ import sys
 from pathlib import Path
 
 try:
-    import bluetooth
-    HAS_PYBLUEZ = True
-except ImportError:
-    HAS_PYBLUEZ = False
-
-try:
     from bleak import BleakScanner
     HAS_BLEAK = True
 except ImportError:
     HAS_BLEAK = False
+
+# 简化：只使用BLE扫描，避免pybluez编译问题
+HAS_PYBLUEZ = False
 
 
 class BluetoothSecurityApp:
