@@ -13,6 +13,7 @@ import json
 import datetime
 import os
 import sys
+import asyncio
 from pathlib import Path
 
 try:
@@ -232,10 +233,13 @@ class BluetoothSecurityApp:
             
             if HAS_BLEAK:
                 self.log_message("扫描BLE设备...")
-                ble_devices = await BleakScanner.discover(timeout=8)
-                
-                for device in ble_devices:
-                    self.root.after(0, lambda d=device: self.add_device(d.address, d.name or "Unknown", "BLE"))
+                try:
+                    ble_devices = asyncio.run(BleakScanner.discover(timeout=8))
+                    
+                    for device in ble_devices:
+                        self.root.after(0, lambda d=device: self.add_device(d.address, d.name or "Unknown", "BLE"))
+                except Exception as ble_error:
+                    self.log_message(f"BLE扫描失败：{str(ble_error)}")
             
             if not HAS_PYBLUEZ and not HAS_BLEAK:
                 self.log_message("警告：未安装蓝牙库，使用模拟数据")
